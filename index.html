@@ -103,16 +103,20 @@
         </div>
         <div class="quick-actions-row">
           <button class="quick-action-pill" onclick="openGlobalAddActionModal()">
-            <span class="pill-icon bg-purple">🎙️</span>
-            <span>+ Registrar Acción</span>
+            <span class="pill-icon bg-emerald">🎙️</span>
+            <span>+ Acción</span>
           </button>
-          <button class="quick-action-pill" onclick="switchTab('companies')">
+          <button class="quick-action-pill" onclick="openModal('modal-add-company')">
             <span class="pill-icon bg-blue">🏢</span>
-            <span>Ver Empresas</span>
+            <span>+ Empresa</span>
           </button>
-          <button class="quick-action-pill" onclick="switchTab('opportunities')">
-            <span class="pill-icon bg-emerald">📑</span>
-            <span>Oportunidades</span>
+          <button class="quick-action-pill" onclick="openAddContactModal()">
+            <span class="pill-icon bg-purple">👤</span>
+            <span>+ Contacto</span>
+          </button>
+          <button class="quick-action-pill" onclick="openAddOppModal()">
+            <span class="pill-icon bg-amber">📑</span>
+            <span>+ Oportunidad</span>
           </button>
         </div>
 
@@ -502,7 +506,13 @@
       </div>
       <form id="form-contact" onsubmit="handleSaveContact(event)">
         <input type="hidden" id="contact-id">
-        <input type="hidden" id="contact-company-id">
+
+        <div class="form-group" id="contact-company-group">
+          <label>Empresa Cliente *</label>
+          <select id="contact-company-select" required>
+            <!-- Llenado dinámico -->
+          </select>
+        </div>
 
         <div class="form-group">
           <label>Nombre Completo *</label>

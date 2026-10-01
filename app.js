@@ -926,22 +926,50 @@ function deleteCurrentCompany() {
 // ==========================================
 // 6. GESTIÓN DE CONTACTOS DE LA EMPRESA
 // ==========================================
-function openAddContactModal() {
-  if (!selectedCompanyId) return;
+function openAddContactModal(preselectedCompanyId = null) {
+  if (companies.length === 0) {
+    alert('Primero debes registrar al menos una Empresa para poder asociarle un contacto.');
+    openModal('modal-add-company');
+    return;
+  }
+
+  populateContactCompanySelect();
   document.getElementById('form-contact').reset();
   document.getElementById('contact-id').value = '';
-  document.getElementById('contact-company-id').value = selectedCompanyId;
+
+  const targetCompId = preselectedCompanyId || selectedCompanyId || (companies[0] ? companies[0].id : '');
+  if (targetCompId) {
+    document.getElementById('contact-company-select').value = targetCompId;
+  }
+
   openModal('modal-add-contact');
+}
+
+function populateContactCompanySelect() {
+  const select = document.getElementById('contact-company-select');
+  if (!select) return;
+  select.innerHTML = '<option value="">-- Seleccionar Empresa --</option>';
+  companies.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c.id;
+    opt.textContent = `${c.name} (${c.segment} - ${c.geography})`;
+    select.appendChild(opt);
+  });
 }
 
 function handleSaveContact(event) {
   event.preventDefault();
-  const companyId = document.getElementById('contact-company-id').value;
+  const companyId = document.getElementById('contact-company-select').value;
   const name = document.getElementById('contact-name').value.trim();
   const role = document.getElementById('contact-role').value.trim();
   const phone = document.getElementById('contact-phone').value.trim();
   const email = document.getElementById('contact-email').value.trim();
   const comments = document.getElementById('contact-comments').value.trim();
+
+  if (!companyId || !name) {
+    alert('Por favor selecciona una empresa e ingresa el nombre del contacto.');
+    return;
+  }
 
   const comp = companies.find(c => c.id === companyId);
   if (!comp) return;
@@ -960,8 +988,12 @@ function handleSaveContact(event) {
   comp.contacts.push(newContact);
   saveCompanies();
   closeModal('modal-add-contact');
-  showToast('Contacto agregado');
-  openCompanyDetails(companyId);
+  showToast('Contacto agregado exitosamente');
+
+  if (selectedCompanyId === companyId) {
+    openCompanyDetails(companyId);
+    switchCompanySubtab('contacts');
+  }
   renderAllViews();
 }
 
@@ -1504,6 +1536,10 @@ function openModal(modalId) {
 
   if (modalId === 'modal-add-opportunity') {
     populateOpportunityCompanySelect();
+  }
+
+  if (modalId === 'modal-add-contact') {
+    populateContactCompanySelect();
   }
 
   modal.style.display = 'flex';

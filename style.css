@@ -314,33 +314,32 @@ body {
 }
 
 .quick-actions-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 8px;
   margin-bottom: 18px;
-  overflow-x: auto;
-  padding-bottom: 4px;
 }
 
 .quick-action-pill {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  padding: 8px 12px;
-  border-radius: var(--radius-full);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--text-main);
-  white-space: nowrap;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--techint-blue);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 }
 
 .quick-action-pill:active {
   transform: scale(0.97);
   background: var(--techint-gray-light);
+  border-color: var(--techint-green);
 }
 
 .pill-icon {
