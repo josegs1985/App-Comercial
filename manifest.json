@@ -1,0 +1,24 @@
+{
+  "name": "Techint Ingeniería y Construcción - CRM Comercial",
+  "short_name": "Techint CRM",
+  "description": "Seguimiento comercial de clientes, oportunidades EPC y notas de voz",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#002B5C",
+  "theme_color": "#002B5C",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%23002B5C'/><text x='96' y='115' fill='%23ffffff' font-family='sans-serif' font-weight='900' font-size='82' text-anchor='middle'>T</text><rect x='28' y='146' width='136' height='16' rx='8' fill='%23009900'/></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='96' fill='%23002B5C'/><text x='256' y='310' fill='%23ffffff' font-family='sans-serif' font-weight='900' font-size='220' text-anchor='middle'>T</text><rect x='80' y='390' width='352' height='42' rx='21' fill='%23009900'/></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#002B5C">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Techint CRM">
+  <meta name="description" content="Seguimiento comercial y oportunidades EPC - Techint Ingeniería y Construcción">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23002B5C'/><text x='16' y='18' fill='%23ffffff' font-family='sans-serif' font-weight='900' font-size='11' text-anchor='middle'>T</text><rect x='4' y='24' width='24' height='3' rx='1.5' fill='%23009900'/></svg>">
+  <title>Techint Ingeniería y Construcción • CRM Comercial</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Contenedor Principal (Shell Móvil) -->
+  <div class="mobile-container">
+    
+    <!-- Barra Superior / Header Corporativo Techint -->
+    <header class="app-header">
+      <div class="header-content">
+        <div class="header-brand">
+          <div class="techint-brand-box">
+            <span class="techint-logo-title">TECHINT</span>
+            <span class="techint-logo-subtitle">Ingeniería y Construcción</span>
+          </div>
+          <div style="border-left: 1px solid rgba(255,255,255,0.22); padding-left: 8px; margin-left: 2px;">
+            <h1 id="app-title" style="font-size: 0.82rem; font-weight: 800; color: #ffffff; margin: 0; line-height: 1.1;">CRM Comercial</h1>
+            <span class="user-greeting" id="today-date">Seguimiento</span>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <button class="icon-btn" id="btn-quick-backup" title="Exportar Respaldo">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Cuerpo Principal con Vistas Dinámicas -->
+    <main class="app-body">
+      
+      <!-- ==============================================
+           VISTA 1: DASHBOARD / INICIO
+           ============================================== -->
+      <section id="view-dashboard" class="app-view active">
+        <!-- Tarjetas de Métricas Globales -->
+        <div class="kpi-grid">
+          <div class="kpi-card accent-blue">
+            <div class="kpi-info">
+              <span class="kpi-label">Pipeline Total</span>
+              <h3 class="kpi-value" id="kpi-pipeline-val">$0</h3>
+              <span class="kpi-sub" id="kpi-opps-count">0 oportunidades</span>
+            </div>
+            <div class="kpi-badge-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            </div>
+          </div>
+
+          <div class="kpi-card accent-emerald">
+            <div class="kpi-info">
+              <span class="kpi-label">Empresas</span>
+              <h3 class="kpi-value" id="kpi-companies-count">0</h3>
+              <span class="kpi-sub text-emerald" id="kpi-contacts-count">0 contactos</span>
+            </div>
+            <div class="kpi-badge-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"></path><path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16"></path><path d="M9 7h1"></path><path d="M9 11h1"></path><path d="M14 7h1"></path><path d="M14 11h1"></path></svg>
+            </div>
+          </div>
+
+          <div class="kpi-card accent-amber">
+            <div class="kpi-info">
+              <span class="kpi-label">Alcance EPC</span>
+              <h3 class="kpi-value" id="kpi-epc-val">$0</h3>
+              <span class="kpi-sub" id="kpi-epc-count">Proyectos EPC</span>
+            </div>
+            <div class="kpi-badge-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+            </div>
+          </div>
+
+          <div class="kpi-card accent-purple">
+            <div class="kpi-info">
+              <span class="kpi-label">Seguimientos</span>
+              <h3 class="kpi-value" id="kpi-followups-count">0</h3>
+              <span class="kpi-sub text-purple" id="kpi-voice-count">0 con voz</span>
+            </div>
+            <div class="kpi-badge-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acciones Rápidas -->
+        <div class="section-title-row">
+          <h3>Acciones Rápidas</h3>
+        </div>
+        <div class="quick-actions-row">
+          <button class="quick-action-pill" onclick="openGlobalAddActionModal()">
+            <span class="pill-icon bg-purple">🎙️</span>
+            <span>+ Registrar Acción</span>
+          </button>
+          <button class="quick-action-pill" onclick="switchTab('companies')">
+            <span class="pill-icon bg-blue">🏢</span>
+            <span>Ver Empresas</span>
+          </button>
+          <button class="quick-action-pill" onclick="switchTab('opportunities')">
+            <span class="pill-icon bg-emerald">📑</span>
+            <span>Oportunidades</span>
+          </button>
+        </div>
+
+        <!-- Oportunidades Próximas a Entregar -->
+        <div class="section-title-row">
+          <h3>Próximas Entregas de Ofertas</h3>
+          <button class="text-link" onclick="switchTab('opportunities')">Ver todas</button>
+        </div>
+        <div class="cards-list" id="dashboard-upcoming-opps">
+          <!-- Renderizado dinámico -->
+        </div>
+
+        <!-- Últimos Seguimientos Registrados -->
+        <div class="section-title-row mt-4">
+          <h3>Últimos Seguimientos & Notas de Voz</h3>
+        </div>
+        <div class="activity-feed" id="dashboard-recent-followups">
+          <!-- Renderizado dinámico -->
+        </div>
+      </section>
+
+      <!-- ==============================================
+           VISTA 2: LISTA DE EMPRESAS CLIENTES
+           ============================================== -->
+      <section id="view-companies" class="app-view">
+        <div class="section-title-row mb-2">
+          <h3>Directorio de Empresas</h3>
+          <button class="btn btn-sm btn-primary" onclick="openModal('modal-add-company')">
+            + Nueva Empresa
+          </button>
+        </div>
+
+        <div class="search-filter-bar">
+          <!-- Barra de Búsqueda -->
+          <div class="search-input-wrapper">
+            <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="company-search-input" placeholder="Buscar por empresa, segmento, geografía..." oninput="handleCompanySearch(this.value)">
+            <button id="clear-search-btn" class="clear-btn hidden" onclick="clearCompanySearch()">✕</button>
+          </div>
+
+          <!-- Selector de Geografía -->
+          <div class="filter-row-geography">
+            <span class="filter-label">Región:</span>
+            <div class="filter-chips" id="geo-filter-chips">
+              <button class="chip active" data-geo="all" onclick="filterByGeo('all', this)">Todas</button>
+              <button class="chip" data-geo="Norte" onclick="filterByGeo('Norte', this)">Norte</button>
+              <button class="chip" data-geo="Andina" onclick="filterByGeo('Andina', this)">Andina</button>
+              <button class="chip" data-geo="Brasil" onclick="filterByGeo('Brasil', this)">Brasil</button>
+              <button class="chip" data-geo="Sur" onclick="filterByGeo('Sur', this)">Sur</button>
+            </div>
+          </div>
+
+          <!-- Selector de Segmentos Industriales -->
+          <div class="filter-row-segments mt-2">
+            <span class="filter-label">Segmento:</span>
+            <div class="filter-chips" id="segment-filter-chips">
+              <button class="chip active" data-segment="all" onclick="filterBySegment('all', this)">Todos</button>
+              <button class="chip" data-segment="Power" onclick="filterBySegment('Power', this)">Power</button>
+              <button class="chip" data-segment="Oil&Gas" onclick="filterBySegment('Oil&Gas', this)">Oil&Gas</button>
+              <button class="chip" data-segment="Infraestructura" onclick="filterBySegment('Infraestructura', this)">Infraestructura</button>
+              <button class="chip" data-segment="Transición Energética" onclick="filterBySegment('Transición Energética', this)">Transición</button>
+              <button class="chip" data-segment="Ductos" onclick="filterBySegment('Ductos', this)">Ductos</button>
+              <button class="chip" data-segment="Siderurgia" onclick="filterBySegment('Siderurgia', this)">Siderurgia</button>
+              <button class="chip" data-segment="Minería" onclick="filterBySegment('Minería', this)">Minería</button>
+              <button class="chip" data-segment="Otros" onclick="filterBySegment('Otros', this)">Otros</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lista de Empresas -->
+        <div class="cards-list" id="companies-full-list">
+          <!-- Renderizado dinámico -->
+        </div>
+      </section>
+
+      <!-- ==============================================
+           VISTA 3: CARTERA DE OPORTUNIDADES
+           ============================================== -->
+      <section id="view-opportunities" class="app-view">
+        <div class="pipeline-header">
+          <div class="pipeline-summary">
+            <div>
+              <span class="sub-label">Cartera de Oportunidades</span>
+              <div class="pipeline-total-amount" id="opps-header-total">$0</div>
+            </div>
+            <button class="btn btn-sm btn-primary" onclick="openAddOppModal()">+ Nueva Oportunidad</button>
+          </div>
+          <!-- Filtro por Alcance (E, EPC, Todos) -->
+          <div class="segmented-control mt-2">
+            <button class="segment active" onclick="filterOppsByScope('all', this)">Todos los Alcances</button>
+            <button class="segment" onclick="filterOppsByScope('EPC', this)">EPC</button>
+            <button class="segment" onclick="filterOppsByScope('E', this)">Ingeniería (E)</button>
+          </div>
+        </div>
+
+        <!-- Lista de Oportunidades -->
+        <div class="cards-list" id="opportunities-full-list">
+          <!-- Renderizado dinámico -->
+        </div>
+      </section>
+
+      <!-- ==============================================
+           VISTA 4: AJUSTES & RESPALDO
+           ============================================== -->
+      <section id="view-settings" class="app-view">
+        <div class="settings-card">
+          <h3>Gestión de Datos y Respaldo</h3>
+          <p class="settings-desc">Los datos de empresas, contactos, licitaciones EPC y grabaciones de voz se almacenan localmente en tu teléfono/computadora.</p>
+
+          <div class="settings-action-list">
+            <button class="settings-btn" onclick="exportDataJSON()">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <div>
+                <span class="btn-title">Exportar Copia de Respaldo (.json)</span>
+                <span class="btn-sub">Descarga completa con empresas, logos, contactos y audios</span>
+              </div>
+            </button>
+
+            <button class="settings-btn" onclick="exportToCSV()">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+              <div>
+                <span class="btn-title">Exportar a Excel (CSV)</span>
+                <span class="btn-sub">Reporte de empresas y oportunidades para Microsoft Excel</span>
+              </div>
+            </button>
+
+            <label class="settings-btn cursor-pointer">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              <div>
+                <span class="btn-title">Restaurar Copia de Seguridad</span>
+                <span class="btn-sub">Cargar archivo .json previo</span>
+              </div>
+              <input type="file" id="import-file-input" accept=".json" style="display:none" onchange="importDataJSON(event)">
+            </label>
+
+            <button class="settings-btn text-danger" onclick="resetToSampleData()">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+              <div>
+                <span class="btn-title">Restaurar Datos Industriales de Prueba</span>
+                <span class="btn-sub">Carga empresas de referencia (Techint, Iberdrola, YPF, Vale, etc.)</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div class="settings-card mt-3">
+          <h3>Soporte de Grabación y Transcripción de Voz</h3>
+          <p class="settings-desc">La aplicación utiliza la API de Reconocimiento de Voz del navegador (Web Speech API) y el micrófono nativo para transcribir en tiempo real y generar un resumen estructurado con puntos clave y acuerdos.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Botón Flotante para Crear (+ Móvil) -->
+    <button class="floating-fab" id="main-fab" onclick="handleFabClick()" aria-label="Nuevo registro">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+    </button>
+
+    <!-- Barra de Navegación Inferior Fija (Bottom Navigation Bar) -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-tab="dashboard" onclick="switchTab('dashboard')">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+        <span>Inicio</span>
+      </button>
+
+      <button class="nav-item" data-tab="companies" onclick="switchTab('companies')">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 7V3H2v18h20V7H12z"></path>
+          <line x1="8" y1="11" x2="8" y2="11.01"></line>
+          <line x1="8" y1="15" x2="8" y2="15.01"></line>
+        </svg>
+        <span>Empresas</span>
+      </button>
+
+      <button class="nav-item" data-tab="opportunities" onclick="switchTab('opportunities')">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>
+        <span>Oportunidades</span>
+      </button>
+
+      <button class="nav-item" data-tab="settings" onclick="switchTab('settings')">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span>Ajustes</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ==============================================
+       MODAL 1: REGISTRAR / EDITAR EMPRESA
+       ============================================== -->
+  <div class="modal-backdrop" id="modal-add-company">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-header">
+        <h3 id="company-modal-title">Nueva Empresa Cliente</h3>
+        <button class="close-modal-btn" onclick="closeModal('modal-add-company')">✕</button>
+      </div>
+      <form id="form-company" onsubmit="handleSaveCompany(event)">
+        <input type="hidden" id="company-id">
+
+        <!-- Selector de Logo / Imagen -->
+        <div class="logo-upload-wrapper">
+          <div class="logo-preview-box" id="logo-preview-box" onclick="document.getElementById('company-logo-input').click()">
+            <img id="company-logo-img" src="" alt="Logo" class="hidden">
+            <div id="company-logo-placeholder" class="logo-placeholder">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+              </svg>
+              <span>Subir Logo</span>
+            </div>
+          </div>
+          <div class="logo-upload-info">
+            <span class="logo-hint-title">Logo de la Empresa</span>
+            <span class="logo-hint-sub">Toca la caja para subir imagen (PNG, JPG, SVG)</span>
+            <input type="file" id="company-logo-input" accept="image/*" style="display:none" onchange="handleLogoUpload(event)">
+            <button type="button" class="btn-remove-logo hidden" id="btn-remove-logo" onclick="removeCompanyLogo()">Quitar logo</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Nombre de la Empresa *</label>
+          <input type="text" id="company-name" required placeholder="Ej: Techint E&C, YPF, Iberdrola...">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Segmento Industrial *</label>
+            <select id="company-segment" required>
+              <option value="Power">Power</option>
+              <option value="Oil&Gas">Oil&Gas</option>
+              <option value="Infraestructura">Infraestructura</option>
+              <option value="Transición Energética">Transición Energética</option>
+              <option value="Ductos">Ductos</option>
+              <option value="Siderurgia">Siderurgia</option>
+              <option value="Minería">Minería</option>
+              <option value="Otros">Otros</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Geografía / Región *</label>
+            <select id="company-geography" required>
+              <option value="Norte">Norte (México, Centroamérica, USA)</option>
+              <option value="Andina">Andina (Colombia, Perú, Ecuador)</option>
+              <option value="Brasil">Brasil</option>
+              <option value="Sur">Sur (Argentina, Chile, Cono Sur)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Sitio Web</label>
+          <input type="url" id="company-website" placeholder="https://www.empresa.com">
+        </div>
+
+        <div class="form-group">
+          <label>Descripción de la Empresa</label>
+          <textarea id="company-description" rows="3" placeholder="Giro comercial, proyectos relevantes, presencia geográfica, instalaciones clave..."></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('modal-add-company')">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-company">Guardar Empresa</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       MODAL 2: FICHA DETALLADA DE LA EMPRESA
+       ============================================== -->
+  <div class="modal-backdrop" id="modal-company-details">
+    <div class="modal-sheet modal-fullscreen-mobile">
+      <div class="modal-handle"></div>
+      
+      <!-- Cabecera Empresa -->
+      <div class="company-detail-hero">
+        <div class="hero-top-row">
+          <div class="hero-logo-box" id="detail-hero-logo">
+            <!-- Logo o Iniciales -->
+          </div>
+          <div class="hero-text-box">
+            <h2 id="detail-company-name">Nombre Empresa</h2>
+            <div class="badges-row">
+              <span class="badge-segment" id="detail-company-segment">Segmento</span>
+              <span class="badge-geo" id="detail-company-geo">Geografía</span>
+            </div>
+          </div>
+          <button class="close-modal-btn" onclick="closeModal('modal-company-details')">✕</button>
+        </div>
+
+        <div class="hero-meta-row">
+          <a href="#" target="_blank" id="detail-company-website" class="hero-website-link">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            <span id="detail-website-text">Sitio web</span>
+          </a>
+          <button class="btn-text-action" onclick="editCurrentCompany()">✏️ Editar</button>
+          <button class="btn-text-action text-danger" onclick="deleteCurrentCompany()">🗑 Eliminar</button>
+        </div>
+
+        <p class="hero-description" id="detail-company-desc">Descripción de la empresa...</p>
+
+        <!-- Pestañas internas de la Empresa -->
+        <div class="company-subtabs">
+          <button class="subtab-btn active" data-subtab="contacts" onclick="switchCompanySubtab('contacts')">
+            👥 Contactos (<span id="count-subtab-contacts">0</span>)
+          </button>
+          <button class="subtab-btn" data-subtab="opps" onclick="switchCompanySubtab('opps')">
+            📑 Oportunidades (<span id="count-subtab-opps">0</span>)
+          </button>
+          <button class="subtab-btn" data-subtab="followup" onclick="switchCompanySubtab('followup')">
+            🎙️ Seguimiento (<span id="count-subtab-followup">0</span>)
+          </button>
+        </div>
+      </div>
+
+      <!-- Contenido de las Pestañas Internas -->
+      <div class="company-detail-content">
+
+        <!-- SUBTAB 1: PERSONAS DE CONTACTO -->
+        <div id="company-pane-contacts" class="subtab-pane active">
+          <div class="section-title-row">
+            <h4>Contactos Clave</h4>
+            <button class="btn btn-sm btn-primary" onclick="openAddContactModal()">+ Agregar Contacto</button>
+          </div>
+          <div class="contacts-grid" id="company-contacts-list">
+            <!-- Renderizado dinámico -->
+          </div>
+        </div>
+
+        <!-- SUBTAB 2: OPORTUNIDADES COMERCIALES -->
+        <div id="company-pane-opps" class="subtab-pane">
+          <div class="section-title-row">
+            <h4>Licitaciones & Oportunidades</h4>
+            <button class="btn btn-sm btn-primary" onclick="openAddOppModalForCurrentCompany()">+ Nueva Oportunidad</button>
+          </div>
+          <div class="opps-company-list" id="company-opps-list">
+            <!-- Renderizado dinámico -->
+          </div>
+        </div>
+
+        <!-- SUBTAB 3: SEGUIMIENTO & NOTAS DE VOZ -->
+        <div id="company-pane-followup" class="subtab-pane">
+          <div class="section-title-row">
+            <h4>Bitácora de Seguimiento</h4>
+            <button class="btn btn-sm btn-voice" onclick="openVoiceFollowupModal()">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
+              <span>+ Nota / Voz</span>
+            </button>
+          </div>
+          <div class="activity-feed" id="company-followups-list">
+            <!-- Timeline de seguimiento con audio y resúmenes -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       MODAL 3: AGREGAR / EDITAR CONTACTO
+       ============================================== -->
+  <div class="modal-backdrop" id="modal-add-contact">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-header">
+        <h3 id="contact-modal-title">Agregar Persona de Contacto</h3>
+        <button class="close-modal-btn" onclick="closeModal('modal-add-contact')">✕</button>
+      </div>
+      <form id="form-contact" onsubmit="handleSaveContact(event)">
+        <input type="hidden" id="contact-id">
+        <input type="hidden" id="contact-company-id">
+
+        <div class="form-group">
+          <label>Nombre Completo *</label>
+          <input type="text" id="contact-name" required placeholder="Ej: Ing. Roberto Méndez">
+        </div>
+
+        <div class="form-group">
+          <label>Puesto / Cargo *</label>
+          <input type="text" id="contact-role" required placeholder="Ej: Director de Compras, Gerente de Obra...">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Teléfono / WhatsApp *</label>
+            <input type="tel" id="contact-phone" required placeholder="+52 55 1234 5678">
+          </div>
+          <div class="form-group">
+            <label>Correo Electrónico</label>
+            <input type="email" id="contact-email" placeholder="roberto@empresa.com">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Comentarios / Perfil del Contacto</label>
+          <textarea id="contact-comments" rows="2" placeholder="Decisor clave, prefiere contacto por WhatsApp, disponibilidad horaria..."></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('modal-add-contact')">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar Contacto</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       MODAL 4: AGREGAR / EDITAR OPORTUNIDAD
+       ============================================== -->
+  <div class="modal-backdrop" id="modal-add-opportunity">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-header">
+        <h3 id="opp-modal-title">Nueva Oportunidad Comercial</h3>
+        <button class="close-modal-btn" onclick="closeModal('modal-add-opportunity')">✕</button>
+      </div>
+      <form id="form-opportunity" onsubmit="handleSaveOpportunity(event)">
+        <input type="hidden" id="opp-id">
+
+        <div class="form-group">
+          <label>Empresa Cliente *</label>
+          <select id="opp-company-id" required>
+            <!-- Llenado dinámico -->
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Nombre de la Oportunidad / Proyecto *</label>
+          <input type="text" id="opp-name" required placeholder="Ej: Ampliación Planta Compresora San Martín">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tipo de Oportunidad *</label>
+            <select id="opp-type">
+              <option value="Licitación Privada">Licitación Privada</option>
+              <option value="Licitación Pública">Licitación Pública</option>
+              <option value="Asignación Directa">Asignación Directa</option>
+              <option value="Contrato Marco">Contrato Marco</option>
+              <option value="Adenda / Ampliación">Adenda / Ampliación</option>
+              <option value="Alianza / Consorcio">Alianza / Consorcio</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Alcance *</label>
+            <select id="opp-scope" required>
+              <option value="EPC">EPC (Ingeniería, Procura y Construcción)</option>
+              <option value="E">E (Solo Ingeniería)</option>
+              <option value="EP">EP (Ingeniería y Procura)</option>
+              <option value="C">C (Solo Construcción)</option>
+              <option value="PMC">PMC (Project Management Consultancy)</option>
+              <option value="O&M">O&M (Operación y Mantenimiento)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Importe Estimado ($ USD) *</label>
+            <input type="number" id="opp-amount" step="any" min="0" required placeholder="Ej: 25000000">
+          </div>
+
+          <div class="form-group">
+            <label>Fecha Límite de Entrega *</label>
+            <input type="date" id="opp-deadline" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Descripción del Alcance / Requisitos Técnicos</label>
+          <textarea id="opp-description" rows="3" placeholder="Detalle técnico, hitos, condiciones comerciales, socios requeridos..."></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('modal-add-opportunity')">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar Oportunidad</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       MODAL 5: SEGUIMIENTO COMERCIAL & NOTAS DE VOZ
+       ============================================== -->
+  <div class="modal-backdrop" id="modal-add-followup">
+    <div class="modal-sheet modal-fullscreen-mobile">
+      <div class="modal-handle"></div>
+      <div class="modal-header">
+        <h3 id="followup-modal-title">Registrar Acción Comercial</h3>
+        <button class="close-modal-btn" onclick="closeModal('modal-add-followup')">✕</button>
+      </div>
+
+      <!-- Selector de Modo: Nota Escrita vs Nota de Voz -->
+      <div class="voice-mode-tabs">
+        <button type="button" class="voice-mode-tab active" id="tab-mode-voice" onclick="setFollowupMode('voice')">
+          🎙️ Nota de Voz & Transcripción
+        </button>
+        <button type="button" class="voice-mode-tab" id="tab-mode-text" onclick="setFollowupMode('text')">
+          ✍️ Nota Escrita
+        </button>
+      </div>
+
+      <form id="form-followup" onsubmit="handleSaveFollowup(event)">
+        <input type="hidden" id="followup-id">
+
+        <!-- Selección de Empresa y Contacto -->
+        <div class="form-row">
+          <div class="form-group">
+            <label>Empresa Cliente *</label>
+            <select id="followup-company-select" required onchange="handleFollowupCompanyChange(this.value)">
+              <!-- Llenado dinámico -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Persona de Contacto</label>
+            <select id="followup-contact-select">
+              <option value="">-- Sin contacto específico --</option>
+              <!-- Llenado dinámico según la empresa elegida -->
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Fecha y Hora *</label>
+            <input type="datetime-local" id="followup-date" required>
+          </div>
+          <div class="form-group">
+            <label>Medio de Contacto</label>
+            <select id="followup-channel">
+              <option value="Reunión Presencial">🤝 Reunión Presencial</option>
+              <option value="Videollamada">💻 Videollamada (Teams/Zoom)</option>
+              <option value="Llamada Telefónica">📞 Llamada Telefónica</option>
+              <option value="WhatsApp">💬 WhatsApp</option>
+              <option value="Visita Técnica">🛠 Visita a Sitio / Planta</option>
+              <option value="Correo">✉️ Correo Formal</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- MÓDULO DE GRABACIÓN DE VOZ -->
+        <div id="voice-recorder-module" class="voice-recorder-box">
+          <div class="mic-status-row">
+            <span class="rec-indicator" id="rec-indicator"></span>
+            <span class="rec-timer" id="rec-timer">00:00</span>
+            <span class="rec-label" id="rec-label">Presiona el botón para hablar</span>
+          </div>
+
+          <!-- Botón de Grabación -->
+          <div class="mic-button-container">
+            <button type="button" id="btn-toggle-record" class="mic-record-btn" onclick="toggleVoiceRecording()">
+              <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                <line x1="12" y1="19" x2="12" y2="23"></line>
+                <line x1="8" y1="23" x2="16" y2="23"></line>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Reproductor de Audio Grabado -->
+          <div id="audio-playback-container" class="audio-playback-box hidden">
+            <span class="audio-label">Audio grabado listo:</span>
+            <audio id="followup-audio-player" controls class="w-full"></audio>
+          </div>
+        </div>
+
+        <!-- Transcripción Automática de Voz -->
+        <div class="form-group mt-3">
+          <div class="flex-between-label">
+            <label>📝 Transcripción de la Nota de Voz *</label>
+            <span class="auto-badge" id="transcript-badge">En vivo / editable</span>
+          </div>
+          <textarea id="followup-transcript" rows="3" required placeholder="Aquí se transcribirá tu voz automáticamente al hablar, o puedes escribir directamente..."></textarea>
+        </div>
+
+        <!-- Resumen Ejecutivo Inteligente -->
+        <div class="form-group">
+          <div class="flex-between-label">
+            <label>✨ Resumen Ejecutivo & Acuerdos</label>
+            <button type="button" class="btn-micro" onclick="regenerateSummary()">⚡ Generar Resumen</button>
+          </div>
+          <textarea id="followup-summary" rows="3" placeholder="Resumen clave generado a partir de la transcripción (puntos clave, compromisos, fechas acordadas)..."></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Próximo Compromiso / Acción</label>
+            <input type="text" id="followup-next-action" placeholder="Ej: Enviar oferta técnica revisada">
+          </div>
+          <div class="form-group">
+            <label>Fecha de Próximo Seguimiento</label>
+            <input type="date" id="followup-next-date">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('modal-add-followup')">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-followup">Guardar Seguimiento</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-notification" id="toast">Notificación</div>
+
+  <!-- Script Principal -->
+  <script src="app.js"></script>
+</body>
+</html>
